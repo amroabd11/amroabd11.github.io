@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name | Cybersecurity Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        
+        :root {
+            --bg-color: #0f0f0f;
+            --surface-color: #1a1a1a;
+            --primary-color: #00ff41;
+            --text-color: #e0e0e0;
+            --text-muted: #a0a0a0;
+            --font-mono: 'Fira Code', 'Courier New', monospace;
+            --font-sans: 'Inter', 'Roboto', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-mono);
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #fff;
+            text-shadow: 0 0 8px var(--primary-color);
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        section {
+            padding: 60px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        
+        .hero {
+            text-align: center;
+            padding: 100px 0;
+            background: linear-gradient(rgba(15, 15, 15, 0.8), rgba(15, 15, 15, 0.8)), url('https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .hero .contact-info a {
+            margin: 0 10px;
+            font-size: 1.5rem;
+        }
+
+        nav {
+            background-color: var(--surface-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        nav li {
+            margin: 0 20px;
+            font-family: var(--font-mono);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .skill-card {
+            background-color: var(--surface-color);
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 5px solid var(--primary-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 255, 65, 0.2);
+        }
+
+        .skill-card h3 {
+            margin-top: 0;
+        }
+
+        .skill-card ul {
+            padding-left: 20px;
+        }
+
+        .skill-card li {
+            position: relative;
+            padding-left: 15px;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-card li::before {
+            content: '>>';
+            position: absolute;
+            left: -10px;
+            color: var(--primary-color);
+        }
+
+        .writeup-list {
+            margin-top: 40px;
+        }
+
+        .writeup-item {
+            background-color: var(--surface-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #333;
+            transition: border-color 0.3s ease;
+        }
+        
+        .writeup-item:hover {
+            border-color: var(--primary-color);
+        }
+
+        .writeup-item h3 {
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+
+        .writeup-item .meta {
+            font-family: var(--font-mono);
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        .writeup-item .meta span {
+            margin-right: 20px;
+        }
+        
+        .writeup-item .tags {
+            margin-top: 10px;
+        }
+        
+        .tag {
+            display: inline-block;
+            background-color: #333;
+            color: var(--primary-color);
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-right: 5px;
+            font-family: var(--font-mono);
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .resource-card {
+            background-color: var(--surface-color);
+            padding: 25px;
+            border-radius: 8px;
+        }
+        
+        .resource-card h3 {
+            font-size: 1.3rem;
+        }
+        
+        .resource-card ul li {
+            padding: 8px 0;
+            border-bottom: 1px dashed #333;
+        }
+        .resource-card ul li:last-child {
+            border-bottom: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            background-color: var(--surface-color);
+        }
+        
+        footer p {
+            margin: 0;
+        }
+        
+        footer .social-links a {
+            font-size: 1.5rem;
+            margin: 0 10px;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            nav ul { flex-direction: column; }
+            nav li { margin: 5px 0; }
+            .skills-grid, .resources-grid { grid-template-columns: 1fr; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="hero" id="about">
+        <div class="container">
+            <h1>Abdelghani AMRAOUY</h1>
+            <p>Cybersecurity Enthusiast | Penetration Tester | CTF Player</p>
+            <div class="contact-info">
+                <a href="https://github.com/amroabd11" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/4mr0/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:abdelghani.amraouy@usmba.ac.ma" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#ctf-writeups">CTF Writeups</a></li>
+            <li><a href="#resources">Resources</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="skills">
+            <div class="container">
+                <h2>Technical Skills</h2>
+                <p>A categorized breakdown of my competencies in various cybersecurity domains.</p>
+                
+                <div class="skills-grid">
+                    <!-- Hardware Skills -->
+                    <div class="skill-card">
+                        <h3><i class="fas fa-microchip"></i> Hardware</h3>
+                        <ul>
+                            <li>IoT Device Teardown & Analysis</li>
+                            <li>UART, SPI, I2C Bus Communication</li>
+                            <li>JTAG & SWD Debugging</li>
+                            <li>Firmware Extraction & Reverse Engineering (Binwalk, Firmware-Mod-Kit)</li>
+                            <li>Side-channel Attack Concepts (Power Analysis)</li>
+                            <li>Tools: Bus Pirate, Saleae Logic Analyzer, JTAGulator</li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-card">
+                        <h3><i class="fas fa-search"></i> Forensics</h3>
+                        <ul>
+                            <li>Disk & Memory Forensics</li>
+                            <li>File Carving & Data Recovery</li>
+                            <li>Network Packet Analysis (PCAP)</li>
+                            <li>Malware Analysis (Static & Dynamic)</li>
+                            <li>Steganography Detection & Extraction</li>
+                            <li>Tools: Autopsy, The Sleuth Kit, Volatility, Wireshark, Ghidra</li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-card">
+                        <h3><i class="fas fa-globe"></i> Web Security</h3>
+                        <ul>
+                            <li>OWASP Top 10 (e.g., XSS, SQLi, CSRF, SSRF)</li>
+                            <li>API Security Testing (REST, GraphQL)</li>
+                            <li>Business Logic Flaws</li>
+                            <li>Client-side Attacks (DOM-based XSS)</li>
+                            <li>Server-Side Template Injection (SSTI)</li>
+                            <li>Tools: Burp Suite Pro, OWASP ZAP, Nmap, Nuclei</li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-card">
+                        <h3><i class="fas fa-network-wired"></i> Networking</h3>
+                        <ul>
+                            <li>TCP/IP Stack Deep Dive</li>
+                            <li>Network Reconnaissance & Enumeration</li>
+                            <li>Firewall & IDS/IPS Evasion</li>
+                            <li>VPN & Tunneling Protocols</li>
+                            <li>Active Directory & Kerberos</li>
+                            <li>Tools: Nmap, Masscan, Wireshark, tcpdump, Netcat</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="ctf-writeups">
+            <div class="container">
+                <h2>CTF Writeups</h2>
+                <p>Detailed walkthroughs of challenges I've solved. This is where I apply my skills and learn new techniques.</p>
+                
+                <div class="writeup-list">
+                    <article class="writeup-item">
+                        <h3>picoCTF 2023 - Web Gauntlet 3</h3>
+                        <div class="meta">
+                            <span><i class="fas fa-calendar"></i> March 2023</span>
+                            <span><i class="fas fa-tag"></i> Web Exploitation</span>
+                            <span><i class="fas fa-trophy"></i> 50 Points</span>
+                        </div>
+                        <p>This challenge involved bypassing a series of SQL injection filters in a login form. The filter blacklisted common keywords like 'OR', 'AND', and spaces. I successfully bypassed it using comment-based SQLi (`/**/`) and logical operators like `||` (OR) to authenticate as the admin user and retrieve the flag.</p>
+                        <div class="tags">
+                            <span class="tag">SQLi</span>
+                            <span class="tag">WAF Bypass</span>
+                            <span class="tag">Burp Suite</span>
+                        </div>
+                        <br>
+                        <a href="https://github.com/amroabd11/ctf-writeups/blob/main/picoctf2023/web_gauntlet_3.md" target="_blank"><i class="fas fa-book-open"></i> Read Full Writeup</a>
+                    </article>
+
+                    <article class="writeup-item">
+                        <h3>HTB Cyber Apocalypse 2022 - Gatekeeper</h3>
+                        <div class="meta">
+                            <span><i class="fas fa-calendar"></i> May 2022</span>
+                            <span><i class="fas fa-tag"></i> Forensics</span>
+                            <span><i class="fas fa-trophy"></i> Easy</span>
+                        </div>
+                        <p>A PCAP file was provided containing network traffic from a suspicious device. By analyzing the traffic with Wireshark and `tshark`, I discovered a series of ICMP packets with data hidden in the payload (a covert channel). Extracting and reassembling this data revealed a zip file password, which unlocked the flag.</p>
+                        <div class="tags">
+                            <span class="tag">PCAP Analysis</span>
+                            <span class="tag">Wireshark</span>
+                            <span class="tag">Covert Channel</span>
+                            <span class="tag">tshark</span>
+                        </div>
+                        <br>
+                        <a href="https://github.com/amroabd11/ctf-writeups/blob/main/htb_cyber_apoc_2022/gatekeeper.md" target="_blank"><i class="fas fa-book-open"></i> Read Full Writeup</a>
+                    </article>
+
+                    <article class="writeup-item">
+                        <h3>DEF CON CTF Quals 2021 - realworld-sigpwn</h3>
+                        <div class="meta">
+                            <span><i class="fas fa-calendar"></i> May 2021</span>
+                            <span><i class="fas fa-tag"></i> Hardware / IoT</span>
+                            <span><i class="fas fa-trophy"></i> Medium</span>
+                        </div>
+                        <p>This challenge provided a firmware image for an IoT device. Using Binwalk, I extracted the file system and found a custom binary. By reverse engineering the binary with Ghidra, I identified a hardcoded backdoor password in the firmware's telnet service, which allowed me to log in and read the flag file.</p>
+                        <div class="tags">
+                            <span class="tag">Firmware Analysis</span>
+                            <span class="tag">Reverse Engineering</span>
+                            <span class="tag">Ghidra</span>
+                            <span class="tag">Binwalk</span>
+                        </div>
+                        <br>
+                        <a href="https://github.com/amroabd11/ctf-writeups/blob/main/defconctf2021/realworld-sigpwn.md" target="_blank"><i class="fas fa-book-open"></i> Read Full Writeup</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="resources">
+            <div class="container">
+                <h2>Learning Resources</h2>
+                <p>A curated list of websites, tools, and communities I use to stay sharp and learn new things. I highly recommend them!</p>
+                
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <h3><i class="fas fa-microchip"></i> Hardware & IoT</h3>
+                        <ul>
+                            <li><a href="https://hackaday.com/" target="_blank">Hackaday</a> - Projects and news for hardware hackers.</li>
+                            <li><a href="https://www.reddit.com/r/iotsecurity/" target="_blank">r/iotsecurity</a> - Community discussions on IoT threats.</li>
+                            <li><a href="https://github.com/sviehb/jefferson" target="_blank">Jefferson</a> - JTAG tool for exploring devices.</li>
+                            <li><a href="https://www.attify.com/blog/" target="_blank">Attify Blog</a> - Great IoT security research.</li>
+                        </ul>
+                    </div>
+
+                    <div class="resource-card">
+                        <h3><i class="fas fa-search"></i> Forensics</h3>
+                        <ul>
+                            <li><a href="https://www.forensicswiki.org/" target="_blank">Forensics Wiki</a> - A treasure trove of information.</li>
+                            <li><a href="https://dfir.blog/" target="_blank">DFIR.blog</a> - Excellent blog by Andrew Rathbun.</li>
+                            <li><a href="https://www.volatilityfoundation.org/" target="_blank">Volatility Foundation</a> - The #1 memory forensics framework.</li>
+                            <li><a href="https://www.sleuthkit.org/" target="_blank">The Sleuth Kit</a> - Open source forensics toolkit.</li>
+                        </ul>
+                    </div>
+
+                    <div class="resource-card">
+                        <h3><i class="fas fa-globe"></i> Web Security</h3>
+                        <ul>
+                            <li><a href="https://portswigger.net/web-security" target="_blank">PortSwigger Web Security Academy</a> - The best free web security training.</li>
+                            <li><a href="https://owasp.org/" target="_blank">OWASP</a> - The foundation for web app security standards.</li>
+                            <li><a href="https://www.hackthebox.com/" target="_blank">Hack The Box</a> - Great platform for hands-on practice.</li>
+                            <li><a href="https://book.hacktricks.xyz/" target="_blank">HackTricks</a> - An amazing wiki for pentesting techniques.</li>
+                        </ul>
+                    </div>
+
+                    <div class="resource-card">
+                        <h3><i class="fas fa-network-wired"></i> Networking</h3>
+                        <ul>
+                            <li><a href="https://www.wireshark.org/docs/" target="_blank">Wireshark Documentation</a> - Learn to master packet analysis.</li>
+                            <li><a href="https://nmap.org/book/" target="_blank">Nmap Network Scanning</a> - The official guide by the creator, Fyodor.</li>
+                            <li><a href="https://danielmiessler.com/study/tcpdump/" target="_blank">Daniel Miessler's tcpdump Primer</a> - A quick and useful guide.</li>
+                            <li><a href="https://packetlife.net/library/" target="_blank">Packet Life</a> - Fantastic cheat sheets for networking.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="https://github.com/amroabd11" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/4mr0/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://twitter.com/4mr0" target="_blank"><i class="fab fa-twitter"></i></a>
+            </div>
+            <p>&copy; 2026 ,,,,....... Built under pressure.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
