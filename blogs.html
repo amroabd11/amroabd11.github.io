@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogs | 4mr0</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f5f5f5;
+            --bg-tertiary: #e8e8e8;
+            --surface-color: #fafafa;
+            --surface-hover: #f0f0f0;
+            --text-primary: #0a0a0a;
+            --text-secondary: #1a1a1a;
+            --text-muted: #6a6a6a;
+            --border-color: #d0d0d0;
+            --border-light: #e0e0e0;
+            --accent: #404040;
+            --font-mono: 'Fira Code', 'Courier New', monospace;
+            --font-sans: 'Inter', 'Roboto', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 80px 0 40px;
+            background: linear-gradient(rgba(250, 250, 250, 0.95), rgba(250, 250, 250, 0.95)), url('https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+        }
+
+        header h1 {
+            font-family: var(--font-mono);
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+        }
+
+        header a {
+            color: var(--text-primary);
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+        }
+
+        header a:hover {
+            color: var(--text-muted);
+        }
+
+        nav {
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem 0;
+            list-style: none;
+        }
+
+        nav li {
+            margin: 0 20px;
+            font-family: var(--font-mono);
+        }
+
+        nav a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        nav a:hover {
+            color: var(--text-muted);
+        }
+
+        .blog-list {
+            padding: 60px 0;
+        }
+
+        .blog-list h2 {
+            font-family: var(--font-mono);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-list > p {
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+
+        .blog-item {
+            background-color: var(--surface-color);
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-light);
+            border-left: 5px solid var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .blog-item:hover {
+            background-color: var(--surface-hover);
+            border-color: var(--border-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .blog-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .blog-item h3 a {
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .blog-item h3 a:hover {
+            color: var(--text-muted);
+        }
+
+        .blog-item .meta {
+            font-family: var(--font-mono);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+
+        .blog-item .meta span {
+            margin-right: 20px;
+        }
+
+        .blog-item p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .blog-item .tags {
+            margin-top: 12px;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: var(--bg-tertiary);
+            color: var(--text-secondary);
+            padding: 3px 12px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            margin-right: 5px;
+            font-family: var(--font-mono);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            background-color: var(--text-primary);
+            color: var(--bg-primary);
+            margin-top: 60px;
+        }
+
+        footer p {
+            margin: 0;
+            color: var(--bg-tertiary);
+        }
+
+        footer .social-links a {
+            font-size: 1.5rem;
+            margin: 0 10px;
+            color: var(--bg-primary);
+        }
+
+        footer .social-links a:hover {
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 2rem; }
+            nav ul { flex-direction: column; }
+            nav li { margin: 5px 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Blogs</h1>
+            <p>In-depth articles on hardware, computer science, and security techniques.</p>
+            <a href="portfolio.html"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="#articles">Articles</a></li>
+        </ul>
+    </nav>
+
+    <section class="blog-list" id="articles">
+        <div class="container">
+            <h2>Latest Articles</h2>
+            <p>Long-form content covering topics from low-level hardware to high-level computer science concepts.</p>
+
+            <div class="blog-item">
+                <h3><a href="/articles/uart-deep-dive.html">UART Communication: A Deep Dive into Serial Protocols</a></h3>
+                <div class="meta">
+                    <span><i class="fas fa-calendar"></i> Coming Soon</span>
+                    <span><i class="fas fa-tag"></i> Hardware</span>
+                </div>
+                <p>Exploring UART protocol internals, signal analysis with logic analyzers, and practical exploitation techniques in IoT devices.</p>
+                <div class="tags">
+                    <span class="tag">UART</span>
+                    <span class="tag">Serial Communication</span>
+                    <span class="tag">IoT</span>
+                </div>
+            </div>
+
+            <div class="blog-item">
+                <h3><a href="/articles/firmware-reverse-engineering.html">Firmware Reverse Engineering: From Extraction to Exploitation</a></h3>
+                <div class="meta">
+                    <span><i class="fas fa-calendar"></i> Coming Soon</span>
+                    <span><i class="fas fa-tag"></i> Reverse Engineering</span>
+                </div>
+                <p>A complete walkthrough of extracting firmware from embedded devices, analyzing binaries with Ghidra, and identifying vulnerabilities.</p>
+                <div class="tags">
+                    <span class="tag">Firmware</span>
+                    <span class="tag">Ghidra</span>
+                    <span class="tag">Binwalk</span>
+                    <span class="tag">Reverse Engineering</span>
+                </div>
+            </div>
+
+            <div class="blog-item">
+                <h3><a href="/articles/buffer-overflow-fundamentals.html">Buffer Overflow: From Theory to Shellcode</a></h3>
+                <div class="meta">
+                    <span><i class="fas fa-calendar"></i> Coming Soon</span>
+                    <span><i class="fas fa-tag"></i> Binary Exploitation</span>
+                </div>
+                <p>Understanding stack layouts, return-oriented programming (ROP), and crafting custom shellcode for x86 and ARM architectures.</p>
+                <div class="tags">
+                    <span class="tag">Buffer Overflow</span>
+                    <span class="tag">ROP</span>
+                    <span class="tag">Shellcode</span>
+                    <span class="tag">x86</span>
+                </div>
+            </div>
+
+            <div class="blog-item">
+                <h3><a href="/articles/network-protocol-analysis.html">Network Protocol Analysis: From Packets to Payloads</a></h3>
+                <div class="meta">
+                    <span><i class="fas fa-calendar"></i> Coming Soon</span>
+                    <span><i class="fas fa-tag"></i> Networking</span>
+                </div>
+                <p>Deep packet inspection, covert channel detection, and reconstructing application-layer data from raw PCAP captures.</p>
+                <div class="tags">
+                    <span class="tag">Wireshark</span>
+                    <span class="tag">PCAP</span>
+                    <span class="tag">tcpdump</span>
+                </div>
+            </div>
+
+            <div class="blog-item">
+                <h3><a href="/articles/jtag-swd-debug.html">JTAG & SWD: Hardware Debugging for Security Research</a></h3>
+                <div class="meta">
+                    <span><i class="fas fa-calendar"></i> Coming Soon</span>
+                    <span><i class="fas fa-tag"></i> Hardware</span>
+                </div>
+                <p>Setting up JTAG/SWD interfaces, reading memory dumps, bypassing secure boot, and extracting firmware via debug ports.</p>
+                <div class="tags">
+                    <span class="tag">JTAG</span>
+                    <span class="tag">SWD</span>
+                    <span class="tag">Hardware Debugging</span>
+                </div>
+            </div>
+
+            <div class="blog-item">
+                <h3><a href="/articles/computer-architecture-basics.html">Computer Architecture: Memory, Caches, and Execution</a></h3>
+                <div class="meta">
+                    <span><i class="fas fa-calendar"></i> Coming Soon</span>
+                    <span><i class="fas fa-tag"></i> Computer Science</span>
+                </div>
+                <p>Breaking down how modern CPUs execute instructions, cache hierarchy, virtual memory translation, and side-channel attack surfaces.</p>
+                <div class="tags">
+                    <span class="tag">CPU Architecture</span>
+                    <span class="tag">Cache</span>
+                    <span class="tag">Memory</span>
+                    <span class="tag">Side-Channel</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="https://github.com/amroabd11" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/4mr0/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://twitter.com/4mr0" target="_blank"><i class="fab fa-twitter"></i></a>
+            </div>
+            <p>&copy; 2026 4mr0. Built under pressure.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

